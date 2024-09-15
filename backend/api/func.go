@@ -67,7 +67,7 @@ func Geocode(address string) (*models.GeoLocation, error) {
 	// creating a RowUrl to be used as the Api to extract the info of the locations
 	params := url.Values{}
 	params.Add("address", address)
-	params.Add("key", "AIzaSyBkn0cpRHsO81GYopWbwvydE1gg01jgLUg")
+	params.Add("key", "key google map")
 
 	baseURL.RawQuery = params.Encode()
 	urlge := baseURL.String()
