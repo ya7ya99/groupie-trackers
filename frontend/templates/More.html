@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/more.css">
+    <title>Artist Details - Groupie-Trackers</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .custom-popup {
+            font-family: Arial, sans-serif;
+            color: #333;
+            text-align: center;
+        }
+
+        .custom-popup img {
+            width: 100%;
+            height: auto;
+        }
+
+        .custom-popup h3 {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .custom-popup p {
+            margin: 5px 0;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkn0cpRHsO81GYopWbwvydE1gg01jgLUg"></script>
+</head>
+
+<body>
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_30fps.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!-- Existing content -->
+    {{range $artist := .Artists}}
+    {{if eq $.ArtistID $artist.ID}}
+    <div class="artist-hero">
+        <div class="artist-info">
+            <img src="{{ $artist.Image }}" alt="{{ $artist.Name }}" class="artist-image">
+            <h1>{{ $artist.Name }}</h1>
+        </div>
+    </div>
+    {{end}}
+    {{end}}
+
+    <div class="container">
+        <div class="info-grid">
+            <div class="info-card">
+                <h2>Artist Info</h2>
+                {{range $artist := .Artists}}
+                {{if eq $.ArtistID $artist.ID}}
+                <p><strong>Start Year:</strong> {{ $artist.CreationDate }}</p>
+                <p><strong>First Album:</strong> {{ $artist.FirstAlbum }}</p>
+                <p><strong>Members:</strong><br>
+                <ul>{{ range $artist.Members }}<li>{{ . }}</li>{{ end }}</ul>
+                </p>
+            </div>
+            {{end}}
+            {{end}}
+            <div class="info-card">
+                <h2>Locations</h2>
+                {{range $artist := .Locations.Index}}
+                {{if eq $.ArtistID $artist.ID}}
+                <p>
+                <ul>{{ range $artist.Locations }} <li>{{ . }}</li>{{ end }}</ul>
+                </p>
+                {{end}}
+                {{end}}
+            </div>
+            <div class="info-card">
+                <h2>Tour Relation</h2>
+                {{range $artist := .Relation.Index}}
+                {{if eq $.ArtistID $artist.ID}}
+                {{range $key, $value := $artist.DatesLocations}}
+                <p><strong>{{ $key }}:</strong><br>
+                <ul>{{ range $value }} <li>{{ . }}</li>{{ end }}</ul>
+                </p>
+                {{end}}
+                {{end}}
+                {{end}}
+            </div>
+            <div class="info-card">
+                <h2>Tour Dates</h2>
+                {{range $artist := .Dates.Index}}
+                {{if eq $.ArtistID $artist.ID}}
+                <p>
+                <ul>{{ range $artist.Dates }} <li>{{ . }}</li>{{ end }}</ul>
+                </p>
+                {{end}}
+                {{end}}
+            </div>
+        </div>
+        <div>
+            {{range $cor := .Coordinates}}
+            <button class="locationbtn" type="submit" data-Lat="{{ .Lat }}" data-Lon="{{ .Lon }}" data-Name="{{ .Name }}">{{ .Name}}</button>
+            {{ end }}
+        </div>
+        <div id="map"></div>
+        <a href="/" class="back-btn">Back to Home</a>
+    </div>
+
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 1,
+                center: {
+                    lat: 34.00,
+                    lng: 31.00
+                }
+            });
+
+            const coordinates = document.querySelectorAll('.locationbtn');
+
+            var bounds = new google.maps.LatLngBounds();
+
+            coordinates.forEach(button => {
+                const lat = parseFloat(button.getAttribute('data-Lat'));
+                const lng = parseFloat(button.getAttribute('data-Lon'));
+                const name = button.getAttribute('data-Name');
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    let marker = new google.maps.Marker({
+                        position: {
+                            lat,
+                            lng,
+                        },
+                        map: map,
+                        title: name,
+                        animation: google.maps.Animation.DROP
+                    });
+
+                    let infowindow = new google.maps.InfoWindow({
+                        content: `<div class="custom-popup"><h3>${name}</h3><p>longitude: ${lat}<br>latitude: ${lng}</p></div>`
+                    });
+
+                    marker.addListener('click', () => {
+                        infowindow.open(map, marker);
+                    });
+
+                    bounds.extend(marker.getPosition());
+                }
+                button.addEventListener('click', () => {
+                    map.panTo({ lat, lng });
+                    map.setZoom(10); // Adjust zoom level as needed
+                });
+            });
+
+            map.fitBounds(bounds);
+        }
+
+        window.onload = initMap;
+    </script>
+
+</body>
+
+</html>

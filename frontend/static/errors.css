@@ -1,0 +1,81 @@
+/* Reset some default browser styles */
+body, h1, p, a {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* General body styles */
+body {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Error container styles */
+.error-container {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-50px);
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Keyframes for fade-in and slide-up animation */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Error heading styles */
+.error-container h1 {
+    font-size: 3rem;
+    color: #f76c6c;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Error message styles */
+.error-message {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Error detail styles */
+.error-detail {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #d9d9d9;
+}
+
+/* Back link styles */
+.back-link {
+    color: #00d2d3;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: 2px solid #00d2d3;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.back-link:hover {
+    background: #00d2d3;
+    color: #fff;
+}

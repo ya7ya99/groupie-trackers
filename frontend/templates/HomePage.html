@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Trackers</title>
+    <link rel="stylesheet" href="/static/home.css">
+
+</head>
+
+
+<header>
+    <h1>Groupie Trackers</h1>
+    <!-- <button id="open-modal">Open Filters</button> -->
+    <form id="fs">
+        <input id="sear" type="search" list="search" placeholder="search Artists..." name="search">
+        <datalist id="search">
+            {{range .Artists}}
+            <option value="{{.Name}}">Artist</option>
+            {{range .Members}}
+            <option value="{{.}}">Member</option>
+            {{end}}
+            <option value="{{.CreationDate}}">Creation Date</option>
+            <option value="{{.FirstAlbum}}">First Album</option>
+            {{end}}
+            {{range $artist := .Locations.Index }}
+            {{ range $artist.Locations }}
+            <option value="{{.}}">Location</option>
+            {{end}}
+            {{end}}
+        </datalist>
+        <input id="sub" type="submit">
+    </form>
+    <!-- Modal -->
+    <div class="filter">
+        <summary>
+            <details>
+                <label for="membersRange">Creation Date:</label>
+                <input type="range" id="minDate" name="mincreation" placeholder="Min" min="1950" max="2023" value="1950"
+                    oninput="valueMin.innerText = this.value">
+                <input type="range" id="maxDate" name="maxcreation" placeholder="Max" min="1959" max="2024" value="2024"
+                    oninput="valueMax.innerText = this.value">
+                <p class="output">
+                    <output id="valueMin">1950</output> - <output id="valueMax">2024</output>
+                </p>
+                <br>
+                <label for="membersRange">First Album Date:</label>
+                <input type="range" id="minDate" name="minAlbum" placeholder="Min" min="1950" max="2023" value="1950"
+                    oninput="valueMinAlbum.innerText = this.value">
+                <input type="range" id="maxDate" name="maxAlbum" placeholder="Max" min="1968" max="2024" value="2024"
+                    oninput="valueMaxAlbum.innerText = this.value">
+                <p class="output">
+                    <output id="valueMinAlbum">1950</output> - <output id="valueMaxAlbum">2024</output>
+                </p>
+                <label for="membersRange">Number Of Members:</label>
+                <input type="checkbox" class="filter-checkbox" value="1" name="filter"> 1
+                <input type="checkbox" class="filter-checkbox" value="2" name="filter"> 2
+                <input type="checkbox" class="filter-checkbox" value="3" name="filter"> 3
+                <input type="checkbox" class="filter-checkbox" value="4" name="filter"> 4
+                <input type="checkbox" class="filter-checkbox" value="5" name="filter"> 5
+                <input type="checkbox" class="filter-checkbox" value="6" name="filter"> 6
+                <input type="checkbox" class="filter-checkbox" value="7" name="filter"> 7
+                <input type="checkbox" class="filter-checkbox" value="8" name="filter"> 8<br>
+                <label for="membersRange">Locations:</label>
+                <input list="filter" class="FilterInput" name="location" type="search" placeholder="Location" />
+                <datalist id="filter">
+                    {{range $artist := .Locations.Index }}
+                    {{ range $artist.Locations }}
+                    <option value="{{.}}">Location</option>
+                    {{end}}
+                    {{end}}
+                </datalist><br>
+                <button type="submit" class="FilterButton">Filter</button>
+            </details>
+        </summary>
+    </div>
+
+   
+</header>
+
+<body>
+    <div class="video-background">
+        <video autoplay muted loop >
+            <source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_30fps.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!-- Main Content -->
+    <main>
+        <div class="artist-grid">
+            {{range $artist := .Artists}}
+            <div class="artist-card">
+                <img src="{{ $artist.Image }}" alt="{{ $artist.Name }}">
+                <div class="artist-info">
+                    <h2>{{ $artist.Name }}</h2>
+                    <p><strong>Start Year:</strong> {{ $artist.CreationDate }}</p>
+                    <p><strong>First Album:</strong> {{ $artist.FirstAlbum }}</p>
+                    <p><strong>Members:</strong> {{range $artist.Members}}{{ . }}, {{end}}</p>
+                    <div class="more-link-wrapper">
+                        <a href="/Artists?id={{ $artist.ID  }}" class="more-link">More Info</a>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+        <a href="/" class="llink">go back</a>
+    </main>
+    
+
+</body>
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Groupie Trackers. All rights reserved.</p>
+</footer>
+
+</html>

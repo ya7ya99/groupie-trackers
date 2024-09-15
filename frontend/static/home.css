@@ -1,0 +1,178 @@
+:root {
+    --primary-color: #00ffff;
+    --secondary-color: #ff00ff;
+    --background-color: #000033;
+    --text-color: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Rajdhani', sans-serif;
+
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+header {
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+    }
+    to {
+        text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color), 0 0 40px var(--primary-color);
+    }
+}
+
+#fs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+#sear, #sub {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    backdrop-filter: blur(10px);
+}
+
+#sear {
+    border-radius: 25px 0 0 25px;
+    width: 300px;
+}
+
+#sub {
+    border-radius: 0 25px 25px 0;
+    background: var(--secondary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#sub:hover {
+    background: var(--primary-color);
+    color: var(--background-color);
+}
+
+.filter {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.artist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.artist-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.artist-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+.artist-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.artist-card:hover img {
+    transform: scale(1.1);
+}
+
+.artist-info {
+    padding: 1rem;
+}
+
+.artist-info h2 {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.more-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.more-link:hover {
+    color: var(--secondary-color);
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    background: black; /* Fallback color */
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+}
