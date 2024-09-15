@@ -34,55 +34,58 @@
     </form>
     <!-- Modal -->
     <div class="filter">
-        <summary>
-            <details>
-                <label for="membersRange">Creation Date:</label>
-                <input type="range" id="minDate" name="mincreation" placeholder="Min" min="1950" max="2023" value="1950"
-                    oninput="valueMin.innerText = this.value">
-                <input type="range" id="maxDate" name="maxcreation" placeholder="Max" min="1959" max="2024" value="2024"
-                    oninput="valueMax.innerText = this.value">
-                <p class="output">
-                    <output id="valueMin">1950</output> - <output id="valueMax">2024</output>
-                </p>
-                <br>
-                <label for="membersRange">First Album Date:</label>
-                <input type="range" id="minDate" name="minAlbum" placeholder="Min" min="1950" max="2023" value="1950"
-                    oninput="valueMinAlbum.innerText = this.value">
-                <input type="range" id="maxDate" name="maxAlbum" placeholder="Max" min="1968" max="2024" value="2024"
-                    oninput="valueMaxAlbum.innerText = this.value">
-                <p class="output">
-                    <output id="valueMinAlbum">1950</output> - <output id="valueMaxAlbum">2024</output>
-                </p>
-                <label for="membersRange">Number Of Members:</label>
-                <input type="checkbox" class="filter-checkbox" value="1" name="filter"> 1
-                <input type="checkbox" class="filter-checkbox" value="2" name="filter"> 2
-                <input type="checkbox" class="filter-checkbox" value="3" name="filter"> 3
-                <input type="checkbox" class="filter-checkbox" value="4" name="filter"> 4
-                <input type="checkbox" class="filter-checkbox" value="5" name="filter"> 5
-                <input type="checkbox" class="filter-checkbox" value="6" name="filter"> 6
-                <input type="checkbox" class="filter-checkbox" value="7" name="filter"> 7
-                <input type="checkbox" class="filter-checkbox" value="8" name="filter"> 8<br>
-                <label for="membersRange">Locations:</label>
-                <input list="filter" class="FilterInput" name="location" type="search" placeholder="Location" />
-                <datalist id="filter">
-                    {{range $artist := .Locations.Index }}
-                    {{ range $artist.Locations }}
-                    <option value="{{.}}">Location</option>
-                    {{end}}
-                    {{end}}
-                </datalist><br>
-                <button type="submit" class="FilterButton">Filter</button>
-            </details>
-        </summary>
+        <form action="/">
+            <summary>
+                <details>
+                    <label for="membersRange">Creation Date:</label>
+                    <input type="range" id="minDate" name="creation-date-from" placeholder="Min" min="1950" max="2023"
+                        value="1950" oninput="valueMin.innerText = this.value">
+                    <input type="range" id="maxDate" name="creation-date-to" placeholder="Max" min="1959" max="2024"
+                        value="2024" oninput="valueMax.innerText = this.value">
+                    <p class="output">
+                        <output id="valueMin">1950</output> - <output id="valueMax">2024</output>
+                    </p>
+                    <br>
+                    <label for="membersRange">First Album Date:</label>
+                    <input type="range" id="minDate" name="album-date-from" placeholder="Min" min="1950" max="2023"
+                        value="1950" oninput="valueMinAlbum.innerText = this.value">
+                    <input type="range" id="maxDate" name="album-date-to" placeholder="Max" min="1968" max="2024"
+                        value="2024" oninput="valueMaxAlbum.innerText = this.value">
+                    <p class="output">
+                        <output id="valueMinAlbum">1950</output> - <output id="valueMaxAlbum">2024</output>
+                    </p>
+                    <label for="membersRange">Number Of Members:</label>
+                    <input type="checkbox" class="filter-checkbox" value="1" name="members"> 1
+                    <input type="checkbox" class="filter-checkbox" value="2" name="members"> 2
+                    <input type="checkbox" class="filter-checkbox" value="3" name="members"> 3
+                    <input type="checkbox" class="filter-checkbox" value="4" name="members"> 4
+                    <input type="checkbox" class="filter-checkbox" value="5" name="members"> 5
+                    <input type="checkbox" class="filter-checkbox" value="6" name="members"> 6
+                    <input type="checkbox" class="filter-checkbox" value="7" name="members"> 7
+                    <input type="checkbox" class="filter-checkbox" value="8" name="members"> 8<br>
+                    <label for="membersRange">Locations:</label>
+                    <input list="filter" class="FilterInput" name="location" type="search" placeholder="Location" />
+                    <datalist id="filter">
+                        {{range $artist := .Locations.Index }}
+                        {{ range $artist.Locations }}
+                        <option value="{{.}}">Location</option>
+                        {{end}}
+                        {{end}}
+                    </datalist><br>
+                    <button type="submit" class="FilterButton">Filter</button>
+                </details>
+            </summary>
+        </form>
     </div>
 
-   
+
 </header>
 
 <body>
     <div class="video-background">
-        <video autoplay muted loop >
-            <source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_30fps.mp4" type="video/mp4">
+        <video autoplay muted loop>
+            <source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_30fps.mp4"
+                type="video/mp4">
         </video>
     </div>
     <!-- Main Content -->
@@ -105,7 +108,7 @@
         </div>
         <a href="/" class="llink">go back</a>
     </main>
-    
+
 
 </body>
 <!-- Footer -->

@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"log"
+	"fmt"
 	"net/http"
 	"strconv"
 	"text/template"
@@ -46,7 +46,7 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 		models.Var_Artists = function.Search(search)
 	}
 	data := models.PageData{
-		Artists: models.Var_Artists,
+		Artists:   models.Var_Artists,
 		Locations: models.Var_Locations,
 	}
 	errE := temp.Execute(w, data)
@@ -94,7 +94,7 @@ func Artists(w http.ResponseWriter, r *http.Request) {
 	for _, location := range locations {
 		coord, err := api.Geocode(location)
 		if err != nil {
-			log.Fatal("Error geocoding %s: %v\n", location, err)
+			fmt.Println("Error geocoding %s: %v\n", location, err)
 			continue
 		}
 		coordinates = append(coordinates, *coord)
